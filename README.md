@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 # dental-pro
-=======
+
 # SmileCraft Dental — Project README
 # Built by Ace Dev Studio
 
@@ -137,4 +136,3 @@ Change: image URL, icon colour, name, type, description, price, tags.
 - [ ] Test on real iPhone and Android
 - [ ] Submit to Google Search Console (free — helps ranking)
 - [ ] Set up Google Business Profile for the clinic (free)
->>>>>>> 394b0f6 (Initial commit)
