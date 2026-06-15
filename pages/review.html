@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <title>How Was Your Visit? — SmileCraft Dental</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:    #0d7377;
+      --teal-l:  #14a8ae;
+      --navy:    #0a1628;
+      --mint:    #e6f7f8;
+      --white:   #ffffff;
+      --off:     #f7fbfc;
+      --border:  #d8eaf2;
+      --text:    #0a1628;
+      --muted:   #5a7a9a;
+      --amber:   #f59e0b;
+      --green:   #1fa86e;
+      --red:     #e84a3a;
+    }
+
+    html { height: 100%; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--navy);
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Subtle background pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(13,115,119,.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(14,168,174,.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: clamp(2rem, 6vw, 3rem);
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 24px 80px rgba(0,0,0,.3);
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: 1.75rem;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-l));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+    }
+
+    .logo-text span { color: var(--teal); }
+
+    /* Step system */
+    .step { display: none; }
+    .step.active { display: block; }
+
+    /* Step 1 — Stars */
+    .step-emoji {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .step-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.75rem;
+      color: var(--navy);
+      margin-bottom: .5rem;
+      line-height: 1.15;
+    }
+
+    .step-sub {
+      font-size: .875rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .stars-row {
+      display: flex;
+      justify-content: center;
+      gap: .75rem;
+      margin-bottom: 1rem;
+    }
+
+    .star-btn {
+      font-size: 2.75rem;
+      color: #d8eaf2;
+      cursor: pointer;
+      transition: color .15s, transform .15s;
+      background: none;
+      border: none;
+      padding: .2rem;
+      line-height: 1;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .star-btn:hover,
+    .star-btn.lit { color: var(--amber); }
+
+    .star-btn.lit { transform: scale(1.15); }
+
+    .stars-hint {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Step 2 positive */
+    .positive-icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(31,168,110,.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+    }
+
+    .rating-display {
+      display: flex;
+      justify-content: center;
+      gap: .3rem;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      background: var(--teal);
+      color: white;
+      padding: .9rem 1.5rem;
+      border-radius: 100px;
+      font-size: .9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+      width: 100%;
+      margin-bottom: .75rem;
+    }
+
+    .google-btn:hover { background: var(--teal-l); transform: translateY(-1px); }
+    .google-btn:active { transform: scale(.97); }
+
+    .skip-link {
+      font-size: .75rem;
+      color: var(--muted);
+      text-decoration: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+
+    .skip-link:hover { color: var(--teal); }
+
+    /* Step 2 negative */
+    .negative-icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(232,74,58,.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+    }
+
+    .f-group {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .f-label {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .f-input {
+      background: var(--off);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      padding: .7rem 1rem;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: .85rem;
+      outline: none;
+      transition: border-color .2s;
+      width: 100%;
+      -webkit-appearance: none;
+    }
+
+    .f-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(13,115,119,.1); }
+    .f-input::placeholder { color: #8aabcc; }
+
+    textarea.f-input {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.6;
+    }
+
+    .submit-btn {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: .9rem 1.5rem;
+      border-radius: 100px;
+      font-size: .9rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Outfit', sans-serif;
+      transition: background .2s, transform .15s;
+    }
+
+    .submit-btn:hover { background: var(--teal-l); }
+    .submit-btn:active { transform: scale(.97); }
+
+    /* Step 3 — done */
+    .done-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-l));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      box-shadow: 0 8px 32px rgba(13,115,119,.3);
+    }
+
+    /* Progress dots */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: .4rem;
+      margin-top: 1.5rem;
+    }
+
+    .progress-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: background .2s, transform .2s;
+    }
+
+    .progress-dot.active {
+      background: var(--teal);
+      transform: scale(1.3);
+    }
+
+    /* Footer */
+    .page-footer {
+      margin-top: 1.5rem;
+      font-size: .72rem;
+      color: rgba(255,255,255,.3);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-footer a { color: rgba(14,168,174,.6); text-decoration: none; }
+
+    /* WA fallback */
+    .wa-fallback {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      background: #25D366;
+      color: white;
+      padding: .75rem 1.5rem;
+      border-radius: 100px;
+      font-size: .85rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: .75rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Logo -->
+  <a href="index.html" class="logo">
+    <div class="logo-mark">
+      <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
+        <path d="M11 2C8 2 5 5 5 8c0 2 .8 4 2 5.5L9 19a2 2 0 004 0l2-5.5C16.2 12 17 10 17 8c0-3-3-6-6-6z"
+              stroke="white" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
+        <path d="M8 8.5c0-1.5 1.3-3 3-3" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="logo-text">Smile<span>Craft</span> Dental</span>
+  </a>
+
+  <!-- ======= STEP 1: Rate ======= -->
+  <div class="step active" id="step-rate">
+    <span class="step-emoji">🦷</span>
+    <h1 class="step-title">How was your visit?</h1>
+    <p class="step-sub">Tap a star to rate your experience today</p>
+
+    <div class="stars-row" role="group" aria-label="Rate your experience 1 to 5 stars">
+      <button class="star-btn" data-val="1" aria-label="1 star">★</button>
+      <button class="star-btn" data-val="2" aria-label="2 stars">★</button>
+      <button class="star-btn" data-val="3" aria-label="3 stars">★</button>
+      <button class="star-btn" data-val="4" aria-label="4 stars">★</button>
+      <button class="star-btn" data-val="5" aria-label="5 stars">★</button>
+    </div>
+
+    <p class="stars-hint">Your honest feedback helps us improve 🙏</p>
+  </div>
+
+  <!-- ======= STEP 2A: Positive (4–5 stars) ======= -->
+  <div class="step" id="step-positive">
+    <div class="positive-icon" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none"
+           stroke="var(--green)" stroke-width="2.5" stroke-linecap="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M8 13s1.5 2.5 4 2.5 4-2.5 4-2.5"/>
+        <path d="M9 9h.01M15 9h.01"/>
+      </svg>
+    </div>
+    <h2 class="step-title">We're so glad!</h2>
+    <div class="rating-display" id="positive-stars" aria-label="Your rating" role="img"></div>
+    <p class="step-sub">
+      Thank you for visiting SmileCraft Dental.
+      Would you share your experience on Google? It takes 30 seconds
+      and helps other patients find us. 🙏
+    </p>
+
+    <!--
+      REPLACE href with the real Google review link from:
+      Google Business Profile → Get more reviews → copy the short URL
+    -->
+    <a href="https://g.page/r/YOUR_CLINIC_REVIEW_ID/review"
+       id="google-review-link"
+       target="_blank" rel="noopener"
+       class="google-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      Write a Google Review
+    </a>
+
+    <button class="skip-link" onclick="showStep('step-done-positive')" aria-label="Skip, maybe later">
+      Maybe later — skip
+    </button>
+  </div>
+
+  <!-- ======= STEP 2B: Negative (1–3 stars) ======= -->
+  <div class="step" id="step-negative">
+    <div class="negative-icon" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none"
+           stroke="var(--red)" stroke-width="2.5" stroke-linecap="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M8 15s1.5-2 4-2 4 2 4 2"/>
+        <path d="M9 9h.01M15 9h.01"/>
+      </svg>
+    </div>
+    <h2 class="step-title">We're sorry to hear that</h2>
+    <p class="step-sub">
+      Please tell us what went wrong.
+      Your feedback goes <strong>directly to our clinic manager</strong>
+      — we'll personally reach out to make it right.
+    </p>
+
+    <form id="negative-form" novalidate>
+      <div class="f-group">
+        <label class="f-label" for="nf-name">Your Name (optional)</label>
+        <input type="text" id="nf-name" name="name" class="f-input"
+               placeholder="Dr. won't see this — only manager"/>
+      </div>
+      <div class="f-group">
+        <label class="f-label" for="nf-phone">Phone / WhatsApp (optional)</label>
+        <input type="tel" id="nf-phone" name="phone" class="f-input"
+               placeholder="So we can reach out to you"/>
+      </div>
+      <div class="f-group">
+        <label class="f-label" for="nf-message">What could we have done better? *</label>
+        <textarea id="nf-message" name="message" class="f-input"
+                  placeholder="Please be as specific as possible — this goes straight to the clinic manager…"
+                  required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Private Feedback</button>
+    </form>
+
+    <p style="font-size:.72rem;color:var(--muted);margin-top:.75rem;">
+      Your feedback is completely private. Only the clinic manager sees this.
+    </p>
+  </div>
+
+  <!-- ======= STEP 3A: Done — positive ======= -->
+  <div class="step" id="step-done-positive">
+    <div class="done-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+           stroke="white" stroke-width="2.5" stroke-linecap="round">
+        <path d="M5 12l5 5L19 7"/>
+      </svg>
+    </div>
+    <h2 class="step-title">Thank you!</h2>
+    <p class="step-sub">
+      Your kind words mean the world to us 🌟<br/>
+      We look forward to seeing you again at SmileCraft Dental.
+    </p>
+    <a href="index.html" class="google-btn" style="background:var(--navy);">
+      Back to our website
+    </a>
+  </div>
+
+  <!-- ======= STEP 3B: Done — negative ======= -->
+  <div class="step" id="step-done-negative">
+    <div class="done-icon" aria-hidden="true" style="background:linear-gradient(135deg,#1fa86e,#25c98a);">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+           stroke="white" stroke-width="2.5" stroke-linecap="round">
+        <path d="M5 12l5 5L19 7"/>
+      </svg>
+    </div>
+    <h2 class="step-title">Feedback received</h2>
+    <p class="step-sub">
+      Thank you for letting us know. Our clinic manager will personally
+      review your feedback and reach out to you within 24 hours.
+    </p>
+    <a href="https://wa.me/917000000000?text=Hi%2C%20I%20left%20feedback%20on%20the%20review%20form."
+       target="_blank" rel="noopener" class="wa-fallback">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Or WhatsApp us directly
+    </a>
+  </div>
+
+  <!-- Progress dots -->
+  <div class="progress-dots" aria-hidden="true">
+    <div class="progress-dot active" id="dot-1"></div>
+    <div class="progress-dot" id="dot-2"></div>
+    <div class="progress-dot" id="dot-3"></div>
+  </div>
+
+</div>
+
+<p class="page-footer">
+  SmileCraft Dental ·
+  <a href="index.html">Visit our website</a> ·
+  <a href="tel:+917000000000">Call us</a>
+</p>
+
+<script>
+'use strict';
+
+const EXPIRY_DAYS = 7;
+const STORE_KEY   = 'smilecraft_neg_feedback';
+
+// ---- Step machine ----
+let currentRating = 0;
+
+function showStep(id) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  // Progress dots
+  const stepMap = {
+    'step-rate':          1,
+    'step-positive':      2,
+    'step-negative':      2,
+    'step-done-positive': 3,
+    'step-done-negative': 3,
+  };
+  const n = stepMap[id] || 1;
+  document.querySelectorAll('.progress-dot').forEach((d, i) => {
+    d.classList.toggle('active', i < n);
+  });
+}
+
+// ---- Stars ----
+const starBtns = document.querySelectorAll('.star-btn');
+
+starBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentRating = parseInt(btn.dataset.val, 10);
+    highlightStars(currentRating);
+
+    // Short delay so user sees the highlight
+    setTimeout(() => {
+      if (currentRating >= 4) {
+        // Populate the gold stars in the positive step
+        document.getElementById('positive-stars').textContent =
+          '★'.repeat(currentRating) + '☆'.repeat(5 - currentRating);
+        showStep('step-positive');
+      } else {
+        showStep('step-negative');
+      }
+    }, 350);
+  });
+
+  // Hover preview
+  btn.addEventListener('mouseenter', () => highlightStars(parseInt(btn.dataset.val, 10)));
+  btn.addEventListener('mouseleave', () => highlightStars(currentRating));
+});
+
+function highlightStars(n) {
+  starBtns.forEach(b => {
+    const v = parseInt(b.dataset.val, 10);
+    b.classList.toggle('lit', v <= n);
+  });
+}
+
+// ---- Negative form ----
+document.getElementById('negative-form').addEventListener('submit', e => {
+  e.preventDefault();
+
+  const msg   = document.getElementById('nf-message').value.trim();
+  const name  = document.getElementById('nf-name').value.trim();
+  const phone = document.getElementById('nf-phone').value.trim();
+
+  if (!msg) {
+    document.getElementById('nf-message').focus();
+    return;
+  }
+
+  // Save to localStorage with expiry
+  saveFeedback({ rating: currentRating, message: msg, name, phone });
+
+  showStep('step-done-negative');
+});
+
+function saveFeedback(data) {
+  pruneExpired();
+  const existing = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+  existing.push({
+    ...data,
+    id:      Date.now(),
+    date:    new Date().toISOString(),
+    expires: Date.now() + EXPIRY_DAYS * 86400000,
+  });
+  localStorage.setItem(STORE_KEY, JSON.stringify(existing));
+}
+
+function pruneExpired() {
+  const existing = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+  localStorage.setItem(
+    STORE_KEY,
+    JSON.stringify(existing.filter(e => e.expires > Date.now()))
+  );
+}
+
+// Prune on load
+pruneExpired();
+</script>
+</body>
+</html>

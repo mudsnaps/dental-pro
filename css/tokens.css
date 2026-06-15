@@ -1,0 +1,113 @@
+/* ============================================================
+   SMILECRAFT DENTAL — Design Tokens
+   Single source of truth for all colors, spacing, typography
+   ============================================================ */
+
+:root {
+  /* --- Brand Colors --- */
+  --clr-navy:        #0a1628;
+  --clr-navy-soft:   #0e1f3a;
+  --clr-teal:        #0d7377;
+  --clr-teal-mid:    #10898e;
+  --clr-teal-light:  #14a8ae;
+  --clr-teal-pale:   #e6f7f8;
+  --clr-mint:        #f0fbfc;
+  --clr-white:       #ffffff;
+  --clr-off:         #f7fbfc;
+  --clr-red:         #e84a3a;
+  --clr-green:       #1fa86e;
+  --clr-amber:       #f59e0b;
+
+  /* --- Text Colors --- */
+  --clr-text:        #0a1628;
+  --clr-text-soft:   #2e4a6a;
+  --clr-text-muted:  #5a7a9a;
+  --clr-text-faint:  #8aabcc;
+
+  /* --- Border / Surface --- */
+  --clr-border:      #d8eaf2;
+  --clr-border-soft: #eaf4f8;
+  --clr-surface:     #f0f8fb;
+
+  /* --- Typography Scale --- */
+  --font-display:    'DM Serif Display', Georgia, serif;
+  --font-body:       'Outfit', system-ui, sans-serif;
+
+  --text-xs:    0.688rem;   /* 11px */
+  --text-sm:    0.813rem;   /* 13px */
+  --text-base:  0.938rem;   /* 15px */
+  --text-md:    1.063rem;   /* 17px */
+  --text-lg:    1.25rem;    /* 20px */
+  --text-xl:    1.5rem;     /* 24px */
+  --text-2xl:   1.875rem;   /* 30px */
+  --text-3xl:   2.25rem;    /* 36px */
+  --text-4xl:   2.75rem;    /* 44px */
+  --text-5xl:   3.5rem;     /* 56px */
+
+  --leading-tight:  1.1;
+  --leading-snug:   1.35;
+  --leading-normal: 1.6;
+  --leading-loose:  1.8;
+
+  --fw-light:   300;
+  --fw-normal:  400;
+  --fw-medium:  500;
+  --fw-semi:    600;
+  --fw-bold:    700;
+
+  /* --- Spacing --- */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* --- Radius --- */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   22px;
+  --radius-2xl:  32px;
+  --radius-full: 9999px;
+
+  /* --- Shadows --- */
+  --shadow-xs: 0 1px 4px rgba(10,22,40,.06);
+  --shadow-sm: 0 2px 12px rgba(10,22,40,.08);
+  --shadow-md: 0 6px 28px rgba(10,22,40,.10);
+  --shadow-lg: 0 16px 56px rgba(10,22,40,.13);
+  --shadow-teal: 0 8px 32px rgba(13,115,119,.18);
+
+  /* --- Transitions --- */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* --- Z-index layers --- */
+  --z-base:    1;
+  --z-raised:  10;
+  --z-nav:     100;
+  --z-overlay: 200;
+  --z-modal:   300;
+  --z-toast:   400;
+
+  /* --- Layout --- */
+  --max-width: 1160px;
+  --nav-height: 64px;
+}
+
+/* Dark nav variant (emergency bar pushes nav down) */
+@media (max-width: 768px) {
+  :root {
+    --text-4xl: 2.25rem;
+    --text-5xl: 2.75rem;
+    --space-24: 4rem;
+    --space-20: 3rem;
+  }
+}
