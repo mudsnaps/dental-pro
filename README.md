@@ -1,7 +1,5 @@
-# dental-pro
-
 # SmileCraft Dental — Project README
-# Built by Ace Dev Studio
+## Built by Ace Dev Studio
 
 ## Folder Structure
 
@@ -24,6 +22,9 @@ dental-pro/
 
 ---
 
+## Demo link
+
+Deployed on Github Pages - [SmileCraft Dental](https://mudsnaps.github.io/dental-pro)
 ## Things to Change Before Going Live
 
 ### 1. WhatsApp Number
